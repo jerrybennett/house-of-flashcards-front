@@ -1,0 +1,19 @@
+footer {
+  background-color: grey;
+  position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    overflow:hidden;
+    text-align: center;
+}
+
+.topics {
+  width: 18%;
+  height: 100px;
+  float: left;
+  text-align: center;
+  border: 1px black solid;
+  margin: 1px;
+}

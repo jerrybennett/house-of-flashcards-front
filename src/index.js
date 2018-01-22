@@ -31,6 +31,6 @@ $(document).ready(() => {
     document.getElementById('body-input').value = '';
     document.getElementById('title-input').value = '';
   }
-  let submitBtn = document.getElementById('submit')
-  submitBtn.addEventListener('click', makeTopic)
+  // let submitBtn = document.getElementById('submit')
+  // submitBtn.addEventListener('click', makeTopic)
 });

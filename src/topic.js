@@ -8,15 +8,29 @@ class Topic {
 
   renderListItem() {
     return `
-    <li>
-      <h3>${this.title}
+    <div id='topic-div-${this.id}' class='topics'>
+      <h4>${this.title} <br>
         <button data-id=${this.id}>edit</button>
-      </h3>
-    </li>`;
+      </h4>
+    </div>`;
   }
 
   static findById(id) {
     return this.all.find(topic => topic.id === id);
+  }
+
+  static renderNewForm() {
+    return `<form>
+        <label>Title</label>
+        <p>
+          <input id="title-input" type="text" value="" placeholder="Title"/>
+        </p>
+        <label>Description</label>
+        <p>
+          <textarea id="desc-input"></textarea>
+        </p>
+        <button id="submit" type='submit'>Create Topic</button>
+      </form>`;
   }
 
   renderUpdateForm() {
