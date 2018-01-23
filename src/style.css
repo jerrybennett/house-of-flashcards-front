@@ -1,12 +1,18 @@
+/* body {
+  padding: 20px;
+} */
+
 footer {
+  height: 10%;
   background-color: grey;
-  position: absolute;
+  position: relative;
     left: 0;
     bottom: 0;
     height: 100px;
     width: 100%;
     overflow:hidden;
     text-align: center;
+    style: block;
 }
 
 .topics {
@@ -16,4 +22,6 @@ footer {
   text-align: center;
   border: 1px black solid;
   margin: 1px;
+  border-radius: 5px;
+  background-color: aqua;
 }

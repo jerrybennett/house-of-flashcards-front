@@ -20,7 +20,7 @@ class Topic {
   }
 
   static renderNewForm() {
-    return `<form>
+    return `<form id="new-topic">
         <label>Title</label>
         <p>
           <input id="title-input" type="text" value="" placeholder="Title"/>

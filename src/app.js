@@ -19,27 +19,23 @@ class App {
       const id = e.target.dataset.id;
       const topic = Topic.findById(parseInt(id));
       $('#topic-list').empty()
-      $('#create-topic-div').empty()
+      $('#create-topic-div').css('display', 'none');
       $('#update').html(topic.renderUpdateForm());
-
     });
 
     $('#create-topic-div').on('click', 'button', e => {
       $('#topic-list').empty()
-      $('#create-topic-div').empty()
-      $('#main').html(Topic.renderNewForm());
+      $('#create-topic-div').css('display', 'none');
+      $('#create-new').html(Topic.renderNewForm());
     });
 
-    $('#create-topic-div').on('submit', 'form', e => {
+    $('#create-new').on('submit', 'form', e => {
       e.preventDefault();
       // grab input
       const title = $(e.target).find('input').val();
       const description = $(e.target).find('textarea').val();
 
-      let newTopicData = {
-        title: title,
-        description: description
-      }
+      let newTopicData = { title: title, description: description };
 
       fetch(`http://localhost:3000/api/v1/topics`, {
         method: 'POST',
@@ -49,12 +45,14 @@ class App {
         },
         body: JSON.stringify(newTopicData)
       })
-        .then(res => res.json())
-        .then(updatedTopic => {
-          console.log(updatedTopic),
-          // getTopics(App.appendTopics)
-          this.adapter.getTopics(this.appendTopics)
-        });
+      .then(res => res.json()).then(res => new Topic(res))
+      .then(res => {
+        console.log(res),
+        $('#topic-list').empty()
+        $('#create-topic-div').css('display', 'block')
+        $('#create-new').empty()
+      this.adapter.getTopics(this.appendTopics)});
+
     })
 
   // $('#create-topic-button').on('click', renderNewForm)
@@ -77,11 +75,12 @@ class App {
         body: JSON.stringify(bodyJSON)
       })
         .then(res => res.json())
-        .then(updatedTopic =>
-          console.log(updatedTopic),
-          $('#topic-list').empty(),
-          $('#update').empty(),
-        this.adapter.getTopics(this.appendTopics))
+        .then(res => {
+          console.log(res)
+          $('#topic-list').empty()
+          $('#update').empty()
+          $('#create-topic-div').css('display', 'block')
+        this.adapter.getTopics(this.appendTopics)});
 
     });
   }
