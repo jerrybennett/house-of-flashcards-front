@@ -10,7 +10,7 @@ class Topic {
     return `
     <div data-id=${this.id} class='topics'>
       <h4>${this.title} <br>
-        <button data-id=${this.id}>edit</button>
+        <button class='edit-topic-button' data-id=${this.id}>edit</button>
       </h4>
     </div>`;
   }

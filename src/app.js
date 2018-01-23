@@ -15,22 +15,20 @@ class App {
   }
 
   attachEventListeners() {
-    $('#topic-list').on('click', 'button', e => {
+    // $('#topic-list').on('click', 'button', e => {
+    //   const id = e.target.dataset.id;
+    //   const topic = Topic.findById(parseInt(id));
+    //   $('#topic-list').empty()
+    //   $('footer').css('display', 'none');
+    //   $('#update').html(topic.renderUpdateForm());
+    // });
+
+    $('#topic-list').on('click', '.topics', e => {
       const id = e.target.dataset.id;
       const topic = Topic.findById(parseInt(id));
       $('#topic-list').empty()
       $('footer').css('display', 'none');
-      $('#update').html(topic.renderUpdateForm());
-    });
-
-    $('#topic-list').on('click', 'div', e => {
-      debugger
-      const id = e.target.dataset.id;
-      const topic = Topic.findById(parseInt(id));
-      $('#topic-list').empty()
-      $('footer').css('display', 'none');
-
-      $('#card-list').html(`<h1>${Topic.title}</h1>`);
+      $('#card-list h1').text(`${topic.title}`);
       console.log(e);
     })
 
@@ -60,7 +58,7 @@ class App {
       .then(res => {
         console.log(res),
         $('#topic-list').empty()
-        $('#create-topic-div').css('display', 'block')
+        $('footer').css('display', 'block')
         $('#create-new').empty()
       this.adapter.getTopics(this.appendTopics)});
 
@@ -90,7 +88,7 @@ class App {
           console.log(res)
           $('#topic-list').empty()
           $('#update').empty()
-          $('#create-topic-div').css('display', 'block')
+          $('footer').css('display', 'block')
           this.adapter.getTopics(this.appendTopics)});
     });
   }
