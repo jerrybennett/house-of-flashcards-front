@@ -8,7 +8,7 @@ class Topic {
 
   renderListItem() {
     return `
-    <div id='topic-div-${this.id}' class='topics'>
+    <div data-id=${this.id} class='topics'>
       <h4>${this.title} <br>
         <button data-id=${this.id}>edit</button>
       </h4>

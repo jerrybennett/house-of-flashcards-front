@@ -19,13 +19,24 @@ class App {
       const id = e.target.dataset.id;
       const topic = Topic.findById(parseInt(id));
       $('#topic-list').empty()
-      $('#create-topic-div').css('display', 'none');
+      $('footer').css('display', 'none');
       $('#update').html(topic.renderUpdateForm());
     });
 
+    $('#topic-list').on('click', 'div', e => {
+      debugger
+      const id = e.target.dataset.id;
+      const topic = Topic.findById(parseInt(id));
+      $('#topic-list').empty()
+      $('footer').css('display', 'none');
+
+      $('#card-list').html(`<h1>${Topic.title}</h1>`);
+      console.log(e);
+    })
+
     $('#create-topic-div').on('click', 'button', e => {
       $('#topic-list').empty()
-      $('#create-topic-div').css('display', 'none');
+      $('footer').css('display', 'none');
       $('#create-new').html(Topic.renderNewForm());
     });
 
@@ -80,8 +91,7 @@ class App {
           $('#topic-list').empty()
           $('#update').empty()
           $('#create-topic-div').css('display', 'block')
-        this.adapter.getTopics(this.appendTopics)});
-
+          this.adapter.getTopics(this.appendTopics)});
     });
   }
 }
