@@ -3,6 +3,7 @@ class Topic {
     this.id = data.id;
     this.title = data.title;
     this.description = data.description;
+    this.cards = []
     Topic.all.push(this);
   }
 
@@ -10,14 +11,23 @@ class Topic {
     return `
     <div data-id=${this.id} class='topics'>
       <h4>${this.title} <br>
-        <button class='edit-topic-button' data-id=${this.id}>edit</button>
+        <button class='edit-topic-button' data-id=${this.id}>See Cards</button>
       </h4>
     </div>`;
   }
 
+  // findCards() {
+  //   return cardStore.filter(function(c) {
+  //     if (c.topic_id === this.id) {
+  //       this.cards.push(c)
+  //     }
+  //   })
+  // }
+
   static findById(id) {
     return this.all.find(topic => topic.id === id);
   }
+
 
   static renderNewForm() {
     return `<form id="new-topic">
