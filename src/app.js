@@ -5,12 +5,20 @@ class App {
 
   init(){
     this.adapter.getTopics(this.appendTopics)
+    this.adapter.getCards(this.appendCards)
     this.attachEventListeners()
   }
 
   appendTopics(json){
     json.forEach(topic => {
       $('#topic-list').append(new Topic(topic).renderListItem());
+    });
+  }
+
+  appendCards(json) {
+    json.forEach(card => {
+      debugger
+      $('#card-list').append(new Card(card).renderListItem());
     });
   }
 

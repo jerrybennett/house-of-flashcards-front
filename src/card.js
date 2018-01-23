@@ -1,11 +1,9 @@
-
-
 class Card {
-  constructor(title, content, topic_id) {
+  constructor({title, content, topic: {id}}) {
     this.title = title
     this.content = content
-    this.topic_id = topic_id
-
+    this.topic_id = id
+    // debugger
     //find the topic based on the above id
     this.topic = Topic.all.find(topic_id)
     //push to it's array
@@ -14,11 +12,21 @@ class Card {
     cardStore.push(this)
   }
 
+  static findById(id) {
+    return this.all.find(card => card.id === id);
+  }
+
   renderCardItem() {
     return `
-    <div data-id=${this.id} class='cards'>
-    <h4> ${this.title} </h4>
-    </div>`;
+    <div data-id=${this.id} class="flip-container" ontouchstart="this.classList.toggle('hover');">
+  	 <div class="flipper">
+     <div class="front">
+       <h4>${this.title}</h4>
+     </div>
+     <div class="back">
+       <p>${this.content}</p>
+     </div>
+    </div></div>`;
   }
 
   static renderNewCard() {

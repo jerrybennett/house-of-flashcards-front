@@ -28,7 +28,6 @@ class Topic {
     return this.all.find(topic => topic.id === id);
   }
 
-
   static renderNewForm() {
     return `<form id="new-topic">
         <label>Title</label>
