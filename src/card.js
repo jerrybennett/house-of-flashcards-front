@@ -1,16 +1,15 @@
 class Card {
-  constructor({title, content, topic: {id}}) {
+  constructor( { title, content, topic } ) {
     this.title = title
     this.content = content
-    this.topic_id = id
-
+    this.topic_id = topic.id
     //find the topic based on the above id
-    this.topic = Topic.all.find(function (topic) {
-    	return topic.id === id;
+    this.topic = Topic.all.find(function(topic) {
+      return topic.id == topic['id'];
     })
     //push to it's array
     this.topic.cards.push(this)
-  // debugger
+    // debugger
     Card.all.push(this)
   }
 
