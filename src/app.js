@@ -14,24 +14,25 @@ class App {
     });
   }
 
-  attachEventListeners() {
-    // $('#topic-list').on('click', 'button', e => {
-    //   const id = e.target.dataset.id;
-    //   const topic = Topic.findById(parseInt(id));
-    //   $('#topic-list').empty()
-    //   $('footer').css('display', 'none');
-    //   $('#update').html(topic.renderUpdateForm());
-    // });
+  appendCards(json) {
+    json.forEach(card => {
+      // debugger
+      $('#card-list').append(new Card(card).renderCardItem());
+    });
+  }
 
-    $('#topic-list').on('click', '.topics', e => {
+  attachEventListeners() {
+
+    //Rendering cards for topic in card pane on click
+    $('#topic-list').on('click', '.topics button', e => {
       const id = e.target.dataset.id;
       const topic = Topic.findById(parseInt(id));
-      $('#topic-list').empty()
-      $('footer').css('display', 'none');
-      $('#card-list h1').text(`${topic.title}`);
-      console.log(e);
+      $('#card-list').empty()
+      this.appendCards(topic.cards)
+      console.log(topic)
     })
-
+    
+    //Create a new topic button is clicked
     $('#create-topic-div').on('click', 'button', e => {
       $('#topic-list').empty()
       $('footer').css('display', 'none');
