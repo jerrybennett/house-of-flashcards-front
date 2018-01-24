@@ -3,13 +3,15 @@ class Card {
     this.title = title
     this.content = content
     this.topic_id = id
-    // debugger
+
     //find the topic based on the above id
-    this.topic = Topic.all.find(topic_id)
+    this.topic = Topic.all.find(function (topic) {
+    	return topic.id === id;
+    })
     //push to it's array
     this.topic.cards.push(this)
-
-    cardStore.push(this)
+  // debugger
+    Card.all.push(this)
   }
 
   static findById(id) {
@@ -45,4 +47,4 @@ class Card {
 
 }
 
-let cardStore = []
+Card.all = []

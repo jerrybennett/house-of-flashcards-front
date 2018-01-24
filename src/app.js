@@ -17,44 +17,21 @@ class App {
 
   appendCards(json) {
     json.forEach(card => {
-      debugger
-      $('#card-list').append(new Card(card).renderListItem());
+      // debugger
+      $('#card-list').append(new Card(card).renderCardItem());
     });
   }
 
   attachEventListeners() {
-    // $('#topic-list').on('click', 'button', e => {
-    //   const id = e.target.dataset.id;
-    //   const topic = Topic.findById(parseInt(id));
-    //   $('#topic-list').empty()
-    //   $('footer').css('display', 'none');
-    //   $('#update').html(topic.renderUpdateForm());
-    // });
-
 
     //Rendering cards for topic in card pane on click
-    $('#topic-list').on('click', '.topics', e => {
+    $('#topic-list').on('click', '.topics button', e => {
       const id = e.target.dataset.id;
       const topic = Topic.findById(parseInt(id));
-      $('footer').css('display', 'block');
-      //JS
-
+      $('#card-list').empty()
+      this.appendCards(topic.cards)
       console.log(topic)
-
-      // let cards = topic.findCards();
-      // let card_container = document.getElementById("card-list").innerHTML = `<h1>${topic.title}
-      //     <button type="button" id="create-card">Create Card</button></h1>`
-      // for (const card in cards) {
-      //   card_container.appendChild(card.renderCardItem())
-      // }
-      // document.getElementById('create-card').addEventListener('click', e=> {
-      //   console.log(e)
-      //   document.getElementById("card-list").appendChild(renderNewCard())
-      // })
     })
-
-
-
 
     //Create a new topic button is clicked
     $('#create-topic-div').on('click', 'button', e => {
