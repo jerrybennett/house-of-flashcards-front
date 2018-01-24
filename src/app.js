@@ -5,6 +5,7 @@ class App {
 
   init(){
     this.adapter.getTopics(this.appendTopics)
+    this.adapter.getCards(this.appendCards)
     this.attachEventListeners()
   }
 
@@ -31,7 +32,7 @@ class App {
       this.appendCards(topic.cards)
       console.log(topic)
     })
-    
+
     //Create a new topic button is clicked
     $('#create-topic-div').on('click', 'button', e => {
       $('#topic-list').empty()
@@ -39,9 +40,9 @@ class App {
       $('#create-new').html(Topic.renderNewForm());
     });
 
+    //Submitting a new topic form and POSTing to db
     $('#create-new').on('submit', 'form', e => {
       e.preventDefault();
-      // grab input
       const title = $(e.target).find('input').val();
       const description = $(e.target).find('textarea').val();
 
@@ -65,32 +66,31 @@ class App {
 
     })
 
-  // $('#create-topic-button').on('click', renderNewForm)
 
-
-    $('#update').on('submit', 'form', e => {
-      e.preventDefault();
-      const id = e.target.dataset.id;
-      const topic = Topic.findById(parseInt(id));
-      const title = $(e.target).find('input').val();
-      const description = $(e.target).find('textarea').val();
-
-      const bodyJSON = { title, description };
-      fetch(`http://localhost:3000/api/v1/topics/${topic.id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(bodyJSON)
-      })
-        .then(res => res.json())
-        .then(res => {
-          console.log(res)
-          $('#topic-list').empty()
-          $('#update').empty()
-          $('footer').css('display', 'block')
-          this.adapter.getTopics(this.appendTopics)});
-    });
+    //Submitting Update Topic form (no functionality yet)
+    // $('#update').on('submit', 'form', e => {
+    //   e.preventDefault();
+    //   const id = e.target.dataset.id;
+    //   const topic = Topic.findById(parseInt(id));
+    //   const title = $(e.target).find('input').val();
+    //   const description = $(e.target).find('textarea').val();
+    //
+    //   const bodyJSON = { title, description };
+    //   fetch(`http://localhost:3000/api/v1/topics/${topic.id}`, {
+    //     method: 'PATCH',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Accept': 'application/json'
+    //     },
+    //     body: JSON.stringify(bodyJSON)
+    //   })
+    //     .then(res => res.json())
+    //     .then(res => {
+    //       console.log(res)
+    //       $('#topic-list').empty()
+    //       $('#update').empty()
+    //       $('footer').css('display', 'block')
+    //       this.adapter.getTopics(this.appendTopics)});
+    // });
   }
 }

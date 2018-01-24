@@ -3,7 +3,6 @@ class Card {
     this.title = title
     this.content = content
     this.topic_id = id
-
     //find the topic based on the above id
     this.topic = Topic.all.find(function (topic) {
     	return topic.id === id;

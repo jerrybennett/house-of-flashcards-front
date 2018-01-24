@@ -7,8 +7,7 @@ class Adapter {
   getTopics(callback) {
     return fetch('http://localhost:3000/api/v1/topics')
       .then(res => res.json())
-      .then(res => {callback(res)
-      console.log(res)})
+      .then(res => {callback(res)})
   }
 
   getCards(callback) {
