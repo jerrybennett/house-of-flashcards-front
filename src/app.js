@@ -16,11 +16,11 @@ class App {
   }
 
   appendCards(json) {
+    let cardList = $('#card-list')
     json.forEach(card => {
-      // debugger
-      $('#card-list').append(new Card(card).renderCardItem());
-    });
-  }
+      cardList.append(new Card(card).renderCardItem())
+    })
+  cardList.append(Card.renderNewCard)}
 
   attachEventListeners() {
 
@@ -28,14 +28,20 @@ class App {
     $('#topic-list').on('click', '.topics button', e => {
       const id = e.target.dataset.id;
       const topic = Topic.findById(parseInt(id));
+
+
       $('#card-list').empty()
+
       this.appendCards(topic.cards)
+      debugger
+      $('#card-list').attr("topic-id", topic.id)
       console.log(topic)
     })
 
     //Create a new topic button is clicked
     $('#create-topic-div').on('click', 'button', e => {
       $('#topic-list').empty()
+      $('#card-list').empty()
       $('footer').css('display', 'none');
       $('#create-new').html(Topic.renderNewForm());
     });
@@ -68,29 +74,59 @@ class App {
 
 
     //Submitting Update Topic form (no functionality yet)
-    // $('#update').on('submit', 'form', e => {
-    //   e.preventDefault();
-    //   const id = e.target.dataset.id;
-    //   const topic = Topic.findById(parseInt(id));
-    //   const title = $(e.target).find('input').val();
-    //   const description = $(e.target).find('textarea').val();
-    //
-    //   const bodyJSON = { title, description };
-    //   fetch(`http://localhost:3000/api/v1/topics/${topic.id}`, {
-    //     method: 'PATCH',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'Accept': 'application/json'
-    //     },
-    //     body: JSON.stringify(bodyJSON)
-    //   })
-    //     .then(res => res.json())
-    //     .then(res => {
-    //       console.log(res)
-    //       $('#topic-list').empty()
-    //       $('#update').empty()
-    //       $('footer').css('display', 'block')
-    //       this.adapter.getTopics(this.appendTopics)});
-    // });
-  }
+    $('#update').on('submit', 'form', e => {
+      e.preventDefault();
+      const id = e.target.dataset.id;
+      const topic = Topic.findById(parseInt(id));
+      const title = $(e.target).find('input').val();
+      const description = $(e.target).find('textarea').val();
+
+      const bodyJSON = { title, description };
+      fetch(`http://localhost:3000/api/v1/topics/${topic.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(bodyJSON)
+      })
+        .then(res => res.json())
+        .then(res => {
+          console.log(res)
+          $('#topic-list').empty()
+          $('#update').empty()
+          $('footer').css('display', 'block')
+          this.adapter.getTopics(this.appendTopics)});
+    });
+
+
+
+  //create new card and post to DB
+  $('#card-list').on('submit', 'form', e => {
+
+    e.preventDefault();
+
+    let clue = $(e.target).find('input').val();
+    let answer = $(e.target).find('textarea').val();
+    let topic_id = e.target.dataset.id
+    let newCardData = { title: clue, content: answer, topic_id: {topic_id} };
+    console.log(newCardData)
+    fetch(`http://localhost:3000/api/v1/cards`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(newCardData)
+    })
+    .then(res => res.json())
+    .then(res => new Card(res))
+    // .then(res => {
+      $('#new-card').empty()
+      this.adapter.getCards(this.appendCards);
+
+  })
+}
+
+
 }

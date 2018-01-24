@@ -19,7 +19,7 @@ class Card {
 
   renderCardItem() {
     return `
-    <div data-id=${this.id} class="flip-container" ontouchstart="this.classList.toggle('hover');">
+    <div data-id=${this.topic_id} class="flip-container" ontouchstart="this.classList.toggle('hover');">
   	 <div class="flipper">
      <div class="front">
        <h4>${this.title}</h4>
@@ -40,7 +40,7 @@ class Card {
         <p>
           <textarea id="card-content"></textarea>
         </p>
-        <button id="submit-card" type='submit'>Create Topic</button>
+        <button id="submit-card" type='submit'>Create Card</button>
       </form>`;
   }
 
