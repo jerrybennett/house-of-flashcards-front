@@ -27,12 +27,13 @@ class App {
     $('#topic-list').on('click', '.topics button', e => {
       const id = e.target.dataset.id;
       const topic = Topic.findById(parseInt(id));
-
-
       $('#card-list').empty()
+      let cardList = document.getElementById('card-list')
 
-      this.appendCards(topic.cards)
-      // debugger
+      topic.cards.forEach(function(c) {
+        cardList.innerHTML += c.renderCardItem()
+      })
+      cardList.innerHTML += Card.renderNewCard()
       $('#card-list').attr("topic-id", topic.id)
       console.log(topic)
     })
