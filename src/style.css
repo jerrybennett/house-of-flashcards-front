@@ -8,7 +8,7 @@ body {
 
 .topics {
   width: 40%;
-  height: 100px;
+  height: auto;
   float: left;
   text-align: center;
   border: 1px black solid;
@@ -47,8 +47,8 @@ footer {
 .flip-container {
 	perspective: 1000px;
 }
-	/* flip the pane when hovered */
-	.flip-container:hover .flipper, .flip-container.hover .flipper {
+	/* flip the pane when checked */
+	.flip-container:checked .flipper, .flip-container.checked .flipper {
 		transform: rotateY(180deg);
 	}
 

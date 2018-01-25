@@ -32,11 +32,20 @@ class App {
 
       topic.cards.forEach(function(c) {
         cardList.innerHTML += c.renderCardItem()
+
       })
       cardList.innerHTML += Card.renderNewCard()
 
       $('#card-list').attr("topic-id", topic.id)
       console.log(topic)
+    })
+
+    $('#card-list').on('click', '.edit-card', e => {
+      let sizzile = event.target.parentElement.parentElement
+      let sId = sizzile.dataset.id
+      $('#card-list').empty()
+      $('#card-list').append(Card.renderUpdateCard())
+
     })
 
     $('.search').on('keyup', e => {
@@ -103,7 +112,7 @@ class App {
     })
 
 
-    //Submitting Update Topic form (no functionality yet)
+    //Submitting Update Topic form (no functionality yet?)
     $('#update').on('submit', 'form', e => {
       e.preventDefault();
       const id = e.target.dataset.id;
@@ -112,9 +121,10 @@ class App {
       const description = $(e.target).find('textarea').val();
 
       const bodyJSON = {
-        title,
-        description
-      };
+        title: title,
+        description: description
+      }
+
       fetch(`http://localhost:3000/api/v1/topics/${topic.id}`, {
           method: 'PATCH',
           headers: {
@@ -125,11 +135,9 @@ class App {
         })
         .then(res => res.json())
         .then(res => {
-          console.log(res)
           $('#topic-list').empty()
-          $('#update').empty()
-          $('footer').css('display', 'block')
-          this.adapter.getTopics(this.appendTopics)
+          // $('#update').empty()
+          // $('footer').css('display', 'block')
         });
     });
 

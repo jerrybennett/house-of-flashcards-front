@@ -1,6 +1,7 @@
 class Card {
-  constructor( { title, content, topic } ) {
+  constructor( { id, title, content, topic } ) {
 
+    this.id = id
     this.title = title
     this.content = content
     this.topic_id = topic.id
@@ -19,8 +20,8 @@ class Card {
   }
 
   renderCardItem() {
-    return `
-    <div data-id=${this.topic_id} class="flip-container" ontouchstart="this.classList.toggle('hover');">
+    return `<div data-id=${this.topic_id}>
+    <div class="flip-container" onclick="this.classList.toggle('checked');">
   	 <div class="flipper">
      <div class="front">
        <h4>${this.title}</h4>
@@ -28,7 +29,13 @@ class Card {
      <div class="back">
        <p>${this.content}</p>
      </div>
-    </div></div>`;
+    </div>
+    </div>
+    <div data-id=${this.id}>
+      <span><i class="material-icons edit-card">mode_edit</i></span>
+      <span><i class="material-icons">delete</i></span>
+    </div>
+    </div>`;
   }
 
   static renderNewCard() {
@@ -49,6 +56,22 @@ class Card {
       </details>
       </div>
       `;
+  }
+
+  renderUpdateCard() {
+    return `
+    <form data-id=${this.id}>
+      <label>Title</label>
+      <p>
+        <input type="text" value="${this.title}" />
+      </p>
+      <label>Content</label>
+      <p>
+        <textarea>${this.content}</textarea>
+      </p>
+      <button type='submit'>Save Card</button>
+    </form>
+  `;
   }
 
 }
