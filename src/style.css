@@ -2,6 +2,9 @@ body {
   padding: 20px;
 }
 
+#new-card-form-div {
+  margin: 50px;
+}
 
 .topics {
   width: 40%;
@@ -17,14 +20,14 @@ body {
 #topic-list {
   width: 33%;
   height: 100%;
-  overflow: scroll;
+  overflow: auto;
   float: left;
 }
 
 #card-list {
   width: 60%;
   height: 100%;
-  overflow: scroll;
+  overflow: auto;
 }
 
 footer {
@@ -51,24 +54,26 @@ footer {
 
 .flip-container, .front, .back {
 	width: 320px;
-	height: 480px;
+	/* height: 480px; */
+  height: 250px;
 }
 
 /* flip speed goes here */
 .flipper {
 	transition: 0.6s;
 	transform-style: preserve-3d;
-
 	position: relative;
 }
 
 /* hide back of pane during swap */
 .front, .back {
 	backface-visibility: hidden;
-
 	position: absolute;
 	top: 0;
 	left: 0;
+  text-align: center;
+  height: 200px;
+  overflow: auto;
 }
 
 /* front pane, placed above back */

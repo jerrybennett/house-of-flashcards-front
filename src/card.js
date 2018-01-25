@@ -32,7 +32,10 @@ class Card {
   }
 
   static renderNewCard() {
-    return `<form id="new-card">
+    return `<div id='new-card-form-div'>
+    <details>
+    <summary>Create New Card</summary>
+      <form id="new-card">
         <label>Clue</label>
         <p>
           <input id="card-title" type="text" value="" placeholder="Clue"/>
@@ -42,7 +45,10 @@ class Card {
           <textarea id="card-content"></textarea>
         </p>
         <button id="submit-card" type='submit'>Create Card</button>
-      </form>`;
+      </form>
+      </details>
+      </div>
+      `;
   }
 
 }

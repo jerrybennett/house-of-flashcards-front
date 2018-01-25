@@ -34,8 +34,31 @@ class App {
         cardList.innerHTML += c.renderCardItem()
       })
       cardList.innerHTML += Card.renderNewCard()
+
       $('#card-list').attr("topic-id", topic.id)
       console.log(topic)
+    })
+
+    $('#topic-list').on('keydown', e => {
+      //find all the topics who match the input entered
+      //re render in pane
+      let input = e.target.value
+
+      for (let i = 0; i < Topic.all.length; i++) {
+        if (!Topic.all[i].title.includes(input)) {
+          let id = Topic.all[i].id
+
+          let killedTopic = document.querySelector(`[data-id="${id}"]`)
+
+          killedTopic.remove()
+
+          // debugger
+          // find the thing by id and set to var
+          // document.querySelector('#topic-list').removeChild(`div dataset.id-${id}`)
+        }
+      }
+
+
     })
 
     //Create a new topic button is clicked
@@ -153,6 +176,7 @@ class App {
 
           //add the new form to the bottom
           cardList.innerHTML += Card.renderNewCard()
+
         })
     })
   }
