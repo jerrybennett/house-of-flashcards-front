@@ -57,6 +57,8 @@ class Topic {
     </form>
   `;
   }
+
+
 }
 
 Topic.all = [];

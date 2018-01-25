@@ -39,27 +39,30 @@ class App {
       console.log(topic)
     })
 
-    $('#topic-list').on('keydown', e => {
+    $('.search').on('keyup', e => {
       //find all the topics who match the input entered
       //re render in pane
+      $('#topic-list').empty()
       let input = e.target.value
 
-      for (let i = 0; i < Topic.all.length; i++) {
-        if (!Topic.all[i].title.includes(input)) {
-          let id = Topic.all[i].id
+      let searchResults = Topic.all.filter(function(t){
+            return t['title'].toLowerCase().includes(input.toLowerCase())
+          })
 
-          let killedTopic = document.querySelector(`[data-id="${id}"]`)
-
-          killedTopic.remove()
+      for (let t of searchResults) {
+        $('#topic-list').append(t.renderListItem())
+        //
+        // if (document.querySelector(`div [data-id="${t.id}"]`) != null) { document.querySelector(`div [data-id="${t.id}"]`).remove()}
+      }
 
           // debugger
           // find the thing by id and set to var
           // document.querySelector('#topic-list').removeChild(`div dataset.id-${id}`)
-        }
+        })
       }
 
 
-    })
+    }
 
     //Create a new topic button is clicked
     $('#create-topic-div').on('click', 'button', e => {
@@ -179,7 +182,3 @@ class App {
 
         })
     })
-  }
-
-
-}
