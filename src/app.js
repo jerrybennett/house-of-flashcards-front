@@ -5,7 +5,7 @@ class App {
 
   init() {
     this.adapter.getTopics(this.appendTopics)
-    this.adapter.getCards(this.appendCards)
+    this.adapter.getCards()
     this.attachEventListeners()
   }
 
@@ -15,12 +15,12 @@ class App {
     });
   }
 
-  appendCards(json) {
-    json.forEach(card => {
-      $('#card-list').append(new Card(card).renderCardItem())
-    });
-    // cardList.append(Card.renderNewCard)
-  }
+  // appendCards(json) {
+  //   json.forEach(card => {
+  //     $('#card-list').append(new Card(card).renderCardItem())
+  //   });
+  //   // cardList.append(Card.renderNewCard)
+  // }
 
   attachEventListeners() {
     //Rendering cards for topic in card pane on click
@@ -113,16 +113,16 @@ class App {
     $('#card-list').on('submit', 'form', e => {
 
       e.preventDefault();
-      // debugger
       let clue = $(e.target).find('input').val();
       let answer = $(e.target).find('textarea').val();
       let topicId = parseInt(document.querySelector('#card-list').getAttribute('topic-id'))
+
       let newCardData = {
         title: clue,
         content: answer,
         topic_id: topicId
       };
-      console.log(newCardData)
+
       fetch(`http://localhost:3000/api/v1/cards`, {
           method: 'POST',
           headers: {
@@ -132,11 +132,28 @@ class App {
           body: JSON.stringify(newCardData)
         })
         .then(res => res.json())
-        .then(res => new Card(res))
-      // .then(res => {
-      // $('#new-card').empty()
-      this.adapter.getCards(this.appendCards);
+        .then(res => {
+          //create a new card
+          new Card(res)
 
+          //find the card list div and empty it and the new form too
+          let cardList = document.getElementById('card-list')
+          cardList.innerHTML = ''
+          $('#new-card').empty()
+
+          //grab all the topic cards for that id
+          let topicCards = Card.all.filter(function(c) {
+            return c.topic_id === topicId
+          })
+
+          //add html to each topic card and append to the card list div
+          topicCards.forEach (function(c) {
+            cardList.innerHTML += c.renderCardItem()
+          })
+
+          //add the new form to the bottom
+          cardList.innerHTML += Card.renderNewCard()
+        })
     })
   }
 

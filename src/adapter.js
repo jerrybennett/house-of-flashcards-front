@@ -10,11 +10,14 @@ class Adapter {
       .then(res => {callback(res)
       })
   }
-
-  getCards(callback) {
+  getCards() {
     return fetch('http://localhost:3000/api/v1/cards')
       .then(res => res.json())
-      .then(res => {callback(res)
+      .then(res => {
+        res.forEach(function(card) {
+          new Card (card)
+        })
       })
   }
+
 }
