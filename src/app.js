@@ -15,13 +15,6 @@ class App {
     });
   }
 
-  // appendCards(json) {
-  //   json.forEach(card => {
-  //     $('#card-list').append(new Card(card).renderCardItem())
-  //   });
-  //   // cardList.append(Card.renderNewCard)
-  // }
-
   attachEventListeners() {
     //Rendering cards for topic in card pane on click
     $('#topic-list').on('click', '.topics button', e => {
@@ -48,40 +41,32 @@ class App {
 
     })
 
-    $('.search').on('keyup', e => {
-      //find all the topics who match the input entered
-      //re render in pane
-      $('#topic-list').empty()
-      let input = e.target.value
+    $('#topic-search-bar').on('keyup', e => {
+          $('#topic-list').empty()
+          let input = e.target.value
 
-      let searchResults = Topic.all.filter(function(t){
-            return t['title'].toLowerCase().includes(input.toLowerCase())
-          })
+          let searchResults = Topic.all.filter(function(t){
+                return t['title'].toLowerCase().includes(input.toLowerCase())
+              })
 
-      for (let t of searchResults) {
-        $('#topic-list').append(t.renderListItem())
-        //
-        // if (document.querySelector(`div [data-id="${t.id}"]`) != null) { document.querySelector(`div [data-id="${t.id}"]`).remove()}
-      }
+          for (let t of searchResults) {
+            $('#topic-list').append(t.renderListItem())
 
-          // debugger
-          // find the thing by id and set to var
-          // document.querySelector('#topic-list').removeChild(`div dataset.id-${id}`)
-        })
-      }
+          }
+
+            })
+          }
 
 
-    }
+        }
 
-    //Create a new topic button is clicked
     $('#create-topic-div').on('click', 'button', e => {
       $('#topic-list').empty()
-      $('#card-list').empty()
-      $('footer').css('display', 'none');
-      $('#create-new').html(Topic.renderNewForm());
+      $('#topic-search-bar').removeAttr("style").hide();
+      $('#topic-list').html(Topic.renderNewForm());
     });
 
-    //Submitting a new topic form and POSTing to db
+
     $('#create-new').on('submit', 'form', e => {
       e.preventDefault();
       const title = $(e.target).find('input').val();
@@ -102,17 +87,20 @@ class App {
         })
         .then(res => res.json()).then(res => new Topic(res))
         .then(res => {
-          console.log(res),
-            $('#topic-list').empty()
-          $('footer').css('display', 'block')
-          $('#create-new').empty()
-          this.adapter.getTopics(this.appendTopics)
+
+          let topicDiv = document.getElementById('topic-list')
+          // $('#topic-list').empty()
+
+          topicDiv.innerHTML = ''
+          Topic.all.forEach(function(t) {
+            topicDiv.innerHTML += t.renderListItem()
+          })
+          $("#topic-search-bar").show();
         });
 
     })
 
 
-    //Submitting Update Topic form (no functionality yet?)
     $('#update').on('submit', 'form', e => {
       e.preventDefault();
       const id = e.target.dataset.id;
@@ -142,8 +130,6 @@ class App {
     });
 
 
-
-    //create new card and post to DB
     $('#card-list').on('submit', 'form', e => {
 
       e.preventDefault();

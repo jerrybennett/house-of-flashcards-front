@@ -15,14 +15,6 @@ class Topic {
     </div>`;
   }
 
-  // findCards() {
-  //   return cardStore.filter(function(c) {
-  //     if (c.topic_id === this.id) {
-  //       this.cards.push(c)
-  //     }
-  //   })
-  // }
-
   static findById(id) {
     return this.all.find(topic => topic.id === id);
   }
