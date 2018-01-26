@@ -33,12 +33,30 @@ class App {
       console.log(topic)
     })
 
-    $('#card-list').on('click', '.edit-card', e => {
-      let sizzile = event.target.parentElement.parentElement
-      let sId = sizzile.dataset.id
-      $('#card-list').empty()
-      $('#card-list').append(Card.renderUpdateCard())
+    //edit not functional!
+    // $('#card-list').on('click', '.edit-card', e => {
+    //   let sizzile = event.target.parentElement.parentElement
+    //   let sId = sizzile.dataset.id
+    //   $('#card-list').empty()
+    //   $('#card-list').append(Card.renderUpdateCard())
+    //
+    // })
 
+    $('#card-list').on('click', '.delete-card', e => {
+
+      let cardId = parseInt(event.target.parentElement.parentElement.dataset.id)
+
+      let topicId = parseInt(event.target.parentElement.parentElement.parentElement.dataset.id)
+
+      const topic = Topic.findById(topicId)
+
+      fetch(`http://localhost:3000/api/v1/cards/${cardId}`, {
+        method: 'DELETE'
+      }).then(response => {
+
+
+
+      })
     })
 
     $('#topic-search-bar').on('keyup', e => {
@@ -51,13 +69,9 @@ class App {
 
           for (let t of searchResults) {
             $('#topic-list').append(t.renderListItem())
-
           }
-
             })
           }
-
-
         }
 
     $('#create-topic-div').on('click', 'button', e => {
@@ -87,10 +101,7 @@ class App {
         })
         .then(res => res.json()).then(res => new Topic(res))
         .then(res => {
-
           let topicDiv = document.getElementById('topic-list')
-          // $('#topic-list').empty()
-
           topicDiv.innerHTML = ''
           Topic.all.forEach(function(t) {
             topicDiv.innerHTML += t.renderListItem()

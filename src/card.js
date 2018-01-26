@@ -33,7 +33,8 @@ class Card {
     </div>
     <div data-id=${this.id}>
       <span><i class="material-icons edit-card">mode_edit</i></span>
-      <span><i class="material-icons">delete</i></span>
+
+      <span><i class="material-icons delete-card">delete</i></span>
     </div>
     </div>`;
   }
