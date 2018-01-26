@@ -4,40 +4,44 @@
   <title>AlwaysNote</title>
   <script src="src/jquery-3.3.1.js"></script>
   <link rel="stylesheet" href="src/style.css">
+  <link rel="stylesheet" href="css/bootstrap-grid.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 </head>
 <body>
+  <div class="container-fluid">
   <h1>House of Flash Cards</h1>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="search">
+          <input id="search-topic" type="text" name="search-topic" value="" placeholder="Search Topics">
+      </div>
 
-  <div class="search">
-      <input id="search-topic" type="text" name="search-topic" value="" placeholder="Search Topics">
+      <div id="update"></div>
+      <div id="create-new"></div>
+
+      <div class="main" id='main'></div>
+
+      <div class="row row-eq-height" id='topic-list'></div>
+      </div>
+
+    <!-- <div id="topic-title"></div> -->
+    <div class="col-sm-6">
+      <div id="card-list">
+        <h1></h1>
+      </div>
+    </div>
   </div>
 
-  <div id="update"></div>
-  <div id="create-new"></div>
-
-  <div class="main" id='main'></div>
-
-  <div id='topic-list'>
-
-  </div>
-
-  <!-- <div id="topic-title"></div> -->
-  <div id="card-list">
-    <h1></h1>
-
-  </div>
-
-  <!-- <div class="new" id='new-topic'></div> -->
-  <!-- show page for newly created topic -->
-<footer>
-  <div class="create" id='create-topic-div'>
-    <h2>Can't find what you're looking for?</h2>
-    <button type="button" id="create-topic-button">Create Topic</button>
-  </div>
-</footer>
-
+    <!-- <div class="new" id='new-topic'></div> -->
+    <!-- show page for newly created topic -->
+  <footer>
+    <div class="create" id='create-topic-div'>
+      <h2>Can't find what you're looking for?</h2>
+      <button type="button" id="create-topic-button">Create Topic</button>
+    </div>
+  </footer>
+ </div>
   <script src="src/card.js" charset="utf-8"></script>
   <script src="src/topic.js" charset="utf-8"></script>
   <script src="src/adapter.js" charset="utf-8"></script>
